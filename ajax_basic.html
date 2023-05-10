@@ -11,14 +11,14 @@
 			<div class='content' id="content">
 				<input type="button" class="button" value="Get Content" id="btn_content" onclick="getContent();"/>
 			</div>
-            <p id="aTest" onclick="loadDoc()">Change content</p>
+            <p id="aTest" onclick="loadDoc()">Inspirational Quote</p>
 		<script type="text/javascript">
 			
             //step 1: setup XML HTTP request object
             var ajax = new XMLHttpRequest();
 
             //step 2:prepare the open AJAX request
-            ajax.open('GET', 'content.html');
+            ajax.open('GET', 'content.cshtml');
 
             //step 3:define AJAX response callback method
             ajax.onreadystatechange = function () {
@@ -33,21 +33,62 @@
                 document.getElementById('btn_content').style.display = 'none';
             }
 
+            
 
             //AJAX-TEST
+
+            // JS XMLHttp Req
+            // const data = null;
+
+            // const xhr = new XMLHttpRequest();
+            // xhr.withCredentials = true;
+
+            // xhr.addEventListener("readystatechange", function () {
+            //     if (this.readyState === this.DONE) {
+            //         console.log(this.responseText);
+            //     }
+            // });
+
+            // xhr.open("GET", "https://quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com/quote?token=ipworld.info");
+            // xhr.setRequestHeader("X-RapidAPI-Key", "f3f220457cmsh6cae92504a1567ep160a94jsn96f0abf6f9e3");
+            // xhr.setRequestHeader("X-RapidAPI-Host", "quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com");
+
+            // xhr.send(data);
+
             function loadDoc() {
-                var ajax2 = new XMLHttpRequest();
-                ajax2.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById('aTest').innerHTML = 
-                        this.responseText;
-                    }
-                };
-                ajax2.open("GET", "ajax-test.txt", true);
-                ajax2.send();
+                fetch("https://type.fit/api/quotes")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    console.log(data);
+                });
+
+
+                //OG BELOW
+            //     var ajax2 = new XMLHttpRequest();
+            //     ajax2.onreadystatechange = function () {
+            //         if (this.readyState == 4 && this.status == 200) {
+            //             document.getElementById('aTest').innerHTML = 
+            //             this.responseText;
+            //         }
+            //     };
+            //     ajax2.open("GET", "content.html", true);
+            //     ajax2.send();
             }
 
-
+            // function getQuoteOfDay(){
+            //     var xmlhttp = new XMLHttpRequest;
+            //     xmlhttp.onreadystatechange = function () {
+            //         if (4 === this.readyState && 200 === this.status) {
+            //             var quote = JSON.parse(this.responseText)
+            //             document.getElementById("q_text").innerHTML="\" "+quote.text+" \"";
+            //             document.getElementById("q_author").innerHTML=quote.author;
+            //             }
+            //         };
+            //         xmlhttp.open("GET", "/examine/quote", true);
+            //         xmlhttp.send();
+            // }
 
 		</script>
     </body>
